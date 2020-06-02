@@ -8,13 +8,16 @@
         table {
             margin: auto;
             border-collapse: collapse;
+        }
+
+        #items {
             text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <table border="1">
+    <table id="items" border="1">
         <tr>
             <td>标题</td>
             <td>到期时间</td>
@@ -36,6 +39,23 @@
         <td>是</td>
         <td><a href="javascript:;">delete</a></td>
         </tr>
+        </tr>
+    </table>
+    <table id="insert">
+        <tr>
+            <td>标题：<input type="text" name="title"></td>
+        </tr>
+        <tr>
+            <td>到期时间<input type="datetime-local" name="datetime"></td>
+        </tr>
+        <tr>
+            <td>是否重要:<select name="sex" id="sex">
+                    <option value="male">是</option>
+                    <option value="female">否</option>
+                </select></td>
+        </tr>
+        <tr>
+            <td><input type="submit" name="submit"></td>
         </tr>
     </table>
 </body>
