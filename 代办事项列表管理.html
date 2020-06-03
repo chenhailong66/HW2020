@@ -14,6 +14,22 @@
             text-align: center;
         }
     </style>
+    <script>
+        //增加删除操作
+        let del1 = function () {
+            let tr = this.parentNode.parentNode;
+            let name = tr.getElementsByTagName("td")[0].innerHTML;
+            if (confirm(`您确定删除《${name}》这个代办事项吗`)) {
+                tr.remove();
+            }
+        }
+        window.onload = function () {
+            let alla = document.getElementsByTagName("a");
+            for (let i = 0; i < alla.length; i++) {
+                alla[i].onclick = del1;
+            }
+        }
+    </script>
 </head>
 
 <body>
