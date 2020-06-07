@@ -13,9 +13,15 @@
         #items {
             text-align: center;
         }
+
+        #appear {
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     </style>
     <script>
-        //增加删除操作
+
         let del1 = function () {
             let tr = this.parentNode.parentNode;
             let name = tr.getElementsByTagName("td")[0].innerHTML;
@@ -24,9 +30,23 @@
             }
         }
         window.onload = function () {
+            //增加删除操作
             let alla = document.getElementsByTagName("a");
             for (let i = 0; i < alla.length; i++) {
                 alla[i].onclick = del1;
+                //隐藏插入界面
+                let insert = document.getElementById("insert");
+                insert.hidden = true;
+                //点击显示按钮显示插入界面
+                let appear = document.getElementsByName("appear")[0];
+                appear.onclick = function () {
+                    insert.hidden = false;
+                    //点击按钮隐藏插入界面
+                }
+                let disappear = document.getElementsByName("disappear")[0];
+                disappear.onclick = function () {
+                    insert.hidden = true;
+                }
             }
         }
     </script>
@@ -57,6 +77,8 @@
         </tr>
         </tr>
     </table>
+    <div id="appear"><input type="button" name="appear" value="显示插入界面"><input type="button" name="disappear"
+            value="隐藏插入界面"></div>
     <table id="insert">
         <tr>
             <td>标题：<input type="text" name="title"></td>
