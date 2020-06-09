@@ -34,19 +34,40 @@
             let alla = document.getElementsByTagName("a");
             for (let i = 0; i < alla.length; i++) {
                 alla[i].onclick = del1;
-                //隐藏插入界面
-                let insert = document.getElementById("insert");
+
+            }
+            //隐藏插入界面
+            let insert = document.getElementById("insert");
+            insert.hidden = true;
+            //点击显示按钮显示插入界面
+            let appear = document.getElementsByName("appear")[0];
+            appear.onclick = function () {
+                insert.hidden = false;
+                //点击按钮隐藏插入界面
+            }
+            let disappear = document.getElementsByName("disappear")[0];
+            disappear.onclick = function () {
                 insert.hidden = true;
-                //点击显示按钮显示插入界面
-                let appear = document.getElementsByName("appear")[0];
-                appear.onclick = function () {
-                    insert.hidden = false;
-                    //点击按钮隐藏插入界面
-                }
-                let disappear = document.getElementsByName("disappear")[0];
-                disappear.onclick = function () {
-                    insert.hidden = true;
-                }
+            }
+            //实现增加操作
+            //增加记录
+            let submit = document.getElementsByName("submit")[0];
+            submit.onclick = function () {
+                //创造tr节点
+                let tr = document.createElement("tr");
+                let title = document.getElementById("value1").value;
+                let datetime = document.getElementById("value2").value;
+                let value = document.getElementById("value3").value;
+                tr.innerHTML = "<td>" + title + "</td>" + "<td>" + datetime + "</td>" +
+                    "<td>" + value + "</td>" + "<td><a href='javascript:;'>delete</a></td>";
+                //获取table节点
+                let items = document.getElementById("items");
+                //获取tbody
+                let tbody = items.getElementsByTagName("tbody")[0];
+                //将tr插入tbody
+                tbody.append(tr);
+                let a = tr.getElementsByTagName("a")[0];
+                a.onclick = del1;
             }
         }
     </script>
@@ -60,18 +81,18 @@
             <td>是否重要</td>
         </tr>
         <td>数据库报告提交</td>
-        <td>2020-06-01,18:00</td>
+        <td>2020-06-01T18:00</td>
         <td>是</td>
         <td><a href="javascript:;">delete</a></td>
         </tr>
         </tr>
         <td>去超市买饮料</td>
-        <td>2020-06-02,08:00</td>
+        <td>2020-06-02T08:00</td>
         <td>否</td>
         <td><a href="javascript:;">delete</a></td>
         </tr>
         <td>web学习</td>
-        <td>2020-06-03,13:00</td>
+        <td>2020-06-03T13:00</td>
         <td>是</td>
         <td><a href="javascript:;">delete</a></td>
         </tr>
@@ -81,13 +102,13 @@
             value="隐藏插入界面"></div>
     <table id="insert">
         <tr>
-            <td>标题：<input type="text" name="title"></td>
+            <td>标题：<input id="value1" type="text" name="title"></td>
         </tr>
         <tr>
-            <td>到期时间<input type="datetime-local" name="datetime"></td>
+            <td>到期时间<input id="value2" type="datetime-local" name="datetime"></td>
         </tr>
         <tr>
-            <td>是否重要:<select name="sex" id="sex">
+            <td>是否重要:<select id="value3" name="value" id="value">
                     <option value="male">是</option>
                     <option value="female">否</option>
                 </select></td>
