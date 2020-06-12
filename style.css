@@ -5,6 +5,18 @@ body{
 .todo-panel{
     width: 30em;
     border: 1px solid #eee;margin-top: 5em;
+    margin-top: 5em;
     min-height: 20em;
     box-shadow: 4px 6px 6px #888;
+}
+/*输入框和输入按钮格式*/
+.todo-editor{
+    padding: 5px;
+    display:flex;
+}
+.todo-editor #task-input{
+    margin-right: 5px;
+    flex-grow: 1;
+    font-size: 1.2em;
+    padding: 2px 5px;
 }
