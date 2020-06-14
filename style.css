@@ -11,7 +11,7 @@ body{
 }
 /*输入框和输入按钮格式*/
 .todo-editor{
-    padding: 5px;
+    padding: 5px 20px;
     display:flex;
 }
 .todo-editor #task-input{
@@ -19,4 +19,59 @@ body{
     flex-grow: 1;
     font-size: 1.2em;
     padding: 2px 5px;
+}
+.task.done >label{
+    text-decoration: line-through;
+}
+
+/*对插入的待办项格式进行设置*/
+.todo-items{
+    padding: 5px 20px;
+}
+.todo-items > .task{
+    display: flex; 
+    align-items: center;
+}
+.todo-items > .task >label{
+    flex-grow: 1;
+}
+.todo-items > .task > input{
+    width: 1.5em;
+    height: 1.5em;
+}
+.todo-items  .ctr-buttons  button{
+    border:none;
+    background: none;
+    color: blue;
+    cursor: pointer;
+}
+.todo-items  .ctr-buttons  button:hover{
+    font-weight: bolder;
+}
+.todo-items  .ctr-buttons  button:disabled{
+    color: grey;
+}
+.todo-items  .ctr-buttons  button:disabled:hover{
+    font-weight: unset;
+}
+
+/*重要性样式处理*/
+.todo-items  .ctr-buttons  input{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+    background: url(21五角星.png);
+    margin-left: 18px;
+}
+.task.import .ctr-buttons  input{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+    background: url(红色五角星.png);
+    margin-left: 18px;
+}
+.task.import >label{
+    color: red;
 }
