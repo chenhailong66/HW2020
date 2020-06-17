@@ -1,4 +1,5 @@
 let tasks = [];
+let importitems=0;
 function renderEditor() {
     let inputEl = document.getElementById("task-input");
     let addTask = () => {
@@ -8,7 +9,7 @@ function renderEditor() {
         let newtask = {
             title: inputEl.value,
             done: false,
-            import:false
+            import: false
         };
         inputEl.value = "";
         tasks.push(newtask);
@@ -35,8 +36,8 @@ function renderTaskitems() {
 
         let doneEl = document.createElement("input");
         doneEl.type = "checkbox";
-        
-        //完成响应
+
+        //事件完成响应
         doneEl.checked = task.done;
         if (task.done) {
             item.classList.add("done")
@@ -61,52 +62,62 @@ function renderTaskitems() {
         labelEl.innerText = task.title;
         item.append(labelEl);
 
-        let ctr_buttonsEl = renderTaskCtrlButton(task, i);
+        let ctr_buttonsEl = renderTaskCtrlButton(task, item, i);
+        //item = renderTaskCtrlButton(task, item, i)[1];
 
         item.append(ctr_buttonsEl);
         itemsEl.append(item);
-        
-        //重要性响应
-        let impEl = document.querySelectorAll(".ctr-buttons input")[i];
-        impEl.checked = task.import;
-        if (task.import) {
-            item.classList.add("import");
-        }
-        else {
-            item.classList.remove("import");
-        }
-        impEl.onchange = (e) => {
-            task.import = e.target.checked;
-            if (task.import) {
-                item.classList.add("import");
-            }
-            else {
-                item.classList.remove("import");
-            }
-        }
-
     }
 
 }
 //按钮控制函数
-function renderTaskCtrlButton(task, task_index) {
+function renderTaskCtrlButton(task, item, task_index) {
     let ctr_buttonsEl = document.createElement("div");
     ctr_buttonsEl.className = "ctr-buttons";
     //是否重要按钮
     let impEl = document.createElement("input");
     impEl.type = "checkbox";
+    impEl.checked = task.import;
+    if (task.import) {
+        item.classList.add("import");
+    }
+    else {
+        item.classList.remove("import");
+    }
+    impEl.onchange = (e) => {
+        task.import = e.target.checked;
+        if (task.import) {
+            item.classList.add("import");
+            let t = task;
+            for (let j = task_index; j > 0; j--) {
+                tasks[j] = tasks[j - 1];
+            }
+            tasks[0] = t;
+            importitems++;
+        }
+        else {
+            item.classList.remove("import");
+            let t = task;
+            for (let j = task_index; j <tasks.length-1; j++) {
+                tasks[j] = tasks[j+1];
+            }
+            tasks[tasks.length-1] = t;
+            importitems--;
+        }
+        renderTaskitems();
+
+    }
     ctr_buttonsEl.append(impEl);
     //向上按钮
     let upEl = document.createElement("button");
-    if(task_index===0)
-    {
-        upEl.disabled=true;
+    if (task_index === 0||task_index===importitems) {
+        upEl.disabled = true;
     }
     //执行向上移动
-    upEl.onclick = ()=>{
-        let t=tasks[task_index];
-        tasks[task_index]=tasks[task_index-1];
-        tasks[task_index-1]=t;
+    upEl.onclick = () => {
+        let t = tasks[task_index];
+        tasks[task_index] = tasks[task_index - 1];
+        tasks[task_index - 1] = t;
         renderTaskitems();
     }
     upEl.innerText = "🠕";
@@ -115,16 +126,15 @@ function renderTaskCtrlButton(task, task_index) {
     let downEl = document.createElement("button");
     downEl.innerText = "🠗";
     ctr_buttonsEl.append(downEl);
-    if(task_index===tasks.length-1)
-    {
-        downEl.disabled=true;
+    if (task_index === tasks.length - 1||task_index===importitems-1) {
+        downEl.disabled = true;
     }
 
     //执行向下移动
-    downEl.onclick = ()=>{
-        let t=tasks[task_index];
-        tasks[task_index]=tasks[task_index+1];
-        tasks[task_index+1]=t;
+    downEl.onclick = () => {
+        let t = tasks[task_index];
+        tasks[task_index] = tasks[task_index + 1];
+        tasks[task_index + 1] = t;
         renderTaskitems();
     }
 
