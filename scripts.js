@@ -37,25 +37,7 @@ function renderTaskitems() {
         let doneEl = document.createElement("input");
         doneEl.type = "checkbox";
 
-        //事件完成响应
-        doneEl.checked = task.done;
-        if (task.done) {
-            item.classList.add("done")
-        }
-        else {
-            item.classList.remove("done");
-        }
-        doneEl.onchange = (e) => {
-            task.done = e.target.checked;
-            if (task.done) {
-                item.classList.add("done")
-            }
-            else {
-                item.classList.remove("done");
-            }
-        }
-
-
+        
         item.append(doneEl);
 
         let labelEl = document.createElement("label");
@@ -67,6 +49,30 @@ function renderTaskitems() {
 
         item.append(ctr_buttonsEl);
         itemsEl.append(item);
+
+        //事件完成响应
+        doneEl.checked = task.done;
+        let impEl = item.querySelector(".todo-items  .ctr-buttons  input");
+        if (task.done) {
+            item.classList.add("done");
+            impEl.disabled = true;
+        }
+        else {
+            item.classList.remove("done");
+            impEl.disabled = false;
+        }
+        doneEl.onchange = (e) => {
+            task.done = e.target.checked;
+
+            if (task.done) {
+                item.classList.add("done");
+                impEl.disabled = true;
+            }
+            else {
+                item.classList.remove("done");
+                impEl.disabled = false;
+            }
+        }
     }
 
 }
