@@ -1,6 +1,7 @@
 let tasks = [];
 let importitems=0;
 function renderEditor() {
+    //如果键入内容为空则不执行插入
     let inputEl = document.getElementById("task-input");
     let addTask = () => {
         if (inputEl.value.length === 0) {
@@ -15,11 +16,13 @@ function renderEditor() {
         tasks.push(newtask);
         renderTaskitems();
     }
+    //按ENTER键执行插入操作
     inputEl.onkeypress = (e) => {
         if (e.key === "Enter") {
             addTask();
         }
     }
+    //点击加号执行插入操作
     let addEl = document.querySelector(".todo-editor > button");
     addEl.onclick = (e) => {
         addTask();
@@ -45,7 +48,6 @@ function renderTaskitems() {
         item.append(labelEl);
 
         let ctr_buttonsEl = renderTaskCtrlButton(task, item, i);
-        //item = renderTaskCtrlButton(task, item, i)[1];
 
         item.append(ctr_buttonsEl);
         itemsEl.append(item);
